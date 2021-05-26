@@ -11,7 +11,7 @@ if(find.package("pacman") == FALSE){
 }
 
 # Load packages
-pacman::p_load(dplyr, ggplot2)
+pacman::p_load(dplyr, ggplot2, FactoMineR, factoextra)
 
 # Source functions from other R scripts
 source(file = "German_Credit_Features.r")
@@ -54,7 +54,7 @@ employment <- c("Unemployed", "< 1 Year", "1 <= ... < 4 Years",
                 "4 <= ... < 7 Years", ">= 7 Years")
 inst_rate <- c("< 20%", "20% - 25%", "25% - 35%", "> 35%")
 sex_ms <- c("Male: Divorced", "Female: Divorced",
-            "Male: Single, Male: Married/Widowed",
+            "Male: Single", "Male: Married/Widowed",
             "Female: Single")
 guarantor <- c("None", "Co-Applicant", "Guarantor")
 address <- c("< 1 Year", "1 - 4 Years", "4 - 7 Years", "> 7 Years")
@@ -83,6 +83,40 @@ code_cat <- credit_train %>%
 code_train <- uncode(credit_train, code_cat, categories)
 code_test <- uncode(credit_test, code_cat, categories)
 
+# > Splitting sex & marital status to individual attributes
+# > For training set
+code_train <- code_train %>%
+    mutate(Sex...Marital.Status, 
+           Sex=ifelse(
+                grepl("Male", Sex...Marital.Status), 
+                      "Male", "Female"))
+
+code_train <- code_train %>%
+    mutate(Sex...Marital.Status, 
+           Marital.Status=ifelse(
+                            grepl("Single", Sex...Marital.Status), 
+                            "Single", "Divorced/Separated/Married"))
+
+code_train <- code_train %>%
+    select(-Sex...Marital.Status)
+
+# > For testing set
+code_test <- code_test %>%
+    mutate(Sex...Marital.Status, 
+           Sex=ifelse(
+                grepl("Male", Sex...Marital.Status), 
+                      "Male", "Female"))
+
+code_test <- code_test %>%
+    mutate(Sex...Marital.Status, 
+           Marital.Status=ifelse(
+                            grepl("Single", Sex...Marital.Status), 
+                            "Single", "Divorced/Separated/Married"))
+
+code_test <- code_test %>%
+    select(-Sex...Marital.Status)
+
+# > Inspecting the structure of modified training and testing sets
 str(code_train)
 str(code_test)
 
@@ -168,9 +202,6 @@ len_bar <- ggplot(code_train, aes(x=Length.of.current.employment, fill=Creditabi
 ins_bar <- ggplot(code_train, aes(x=Instalment.per.cent, fill=Creditability))+
                 geom_bar()+
                 labs(title="Barplot of Instalment rate percent")
-sms_bar <- ggplot(code_train, aes(x=Sex...Marital.Status, fill=Creditability))+
-                geom_bar()+
-                labs(title="Barplot of Sex & Marital Status")
 gua_bar <- ggplot(code_train, aes(x=Guarantors, fill=Creditability))+
                 geom_bar()+
                 labs(title="Barplot of Debtors & Guarantors")
@@ -204,6 +235,12 @@ for_bar <- ggplot(code_train, aes(x=Foreign.Worker, fill=Creditability))+
 cred_bar <- ggplot(code_train, aes(x=Creditability, fill=Creditability))+
                 geom_bar()+
                 labs(title="Barplot of Creditability")
+sex_bar <- ggplot(code_train, aes(x=Sex, fill=Creditability))+
+                geom_bar()+
+                labs(title="Barplot of Sex")
+mars_bar <- ggplot(code_train, aes(x=Marital.Status, fill=Creditability))+
+                geom_bar()+
+                labs(title="Barplot of Marital Status")
 
 # ------------------------------------------------------------------------------------------|
 # BIVARIATE ANALYSIS:
