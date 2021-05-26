@@ -98,7 +98,7 @@ code_train <- code_train %>%
                             "Single", "Divorced/Separated/Married"))
 
 code_train <- code_train %>%
-    select(-ID, -Sex...Marital.Status)
+    select(-Sex...Marital.Status)
 
 # > For testing set
 code_test <- code_test %>%
@@ -114,7 +114,7 @@ code_test <- code_test %>%
                             "Single", "Divorced/Separated/Married"))
 
 code_test <- code_test %>%
-    select(-ID, -Sex...Marital.Status)
+    select(-Sex...Marital.Status)
 
 # > Inspecting the structure of modified training and testing sets
 str(code_train)
@@ -247,3 +247,25 @@ mars_bar <- ggplot(code_train, aes(x=Marital.Status, fill=Creditability))+
 
 # ------------------------------------------------------------------------------------------|
 # PRINCIPAL COMPONENTS ANALYSIS:
+
+# > Perform PCA
+famd_train <- FAMD(code_train, 
+                   sup.var = c(1), 
+                   axes = c(1,2))
+
+train_eigen <- get_eigenvalue(famd_train)
+
+# > Visualize plots
+fviz_eig(famd_train)
+
+fviz_contrib(famd_train, "var", axes = 1)
+fviz_contrib(famd_train, "var", axes = 2)
+fviz_contrib(famd_train, "var", axes = 3)
+fviz_contrib(famd_train, "var", axes = 4)
+fviz_contrib(famd_train, "var", axes = 5)
+
+# ------------------------------------------------------------------------------------------|
+# EXPORT:
+
+write.csv(code_train, file="data/GerCred_Clean_TRAIN.csv")
+write.csv(code_test, file="data/GerCred_Clean_TEST.csv")
