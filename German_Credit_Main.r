@@ -98,7 +98,7 @@ code_train <- code_train %>%
                             "Single", "Divorced/Separated/Married"))
 
 code_train <- code_train %>%
-    select(-Sex...Marital.Status)
+    select(-ID, -Sex...Marital.Status)
 
 # > For testing set
 code_test <- code_test %>%
@@ -114,7 +114,7 @@ code_test <- code_test %>%
                             "Single", "Divorced/Separated/Married"))
 
 code_test <- code_test %>%
-    select(-Sex...Marital.Status)
+    select(-ID, -Sex...Marital.Status)
 
 # > Inspecting the structure of modified training and testing sets
 str(code_train)
