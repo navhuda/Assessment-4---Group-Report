@@ -76,12 +76,16 @@ categories <- list(acc_bal, pay_stat, purpose, save_ab, employment,
                    con_credits, housing, num_credits, occupation,
                    num_dependants, telephone, foreign, cred_worth)
 
-code_cat <- credit_train %>%
+train_cat <- credit_train %>%
     select(-c(ID, Duration.of.Credit..month., Credit.Amount, 
               Age..years.))
 
-code_train <- uncode(credit_train, code_cat, categories)
-code_test <- uncode(credit_test, code_cat, categories)
+test_cat <- credit_test %>%
+    select(-c(ID, Duration.of.Credit..month., Credit.Amount, 
+              Age..years.))
+
+code_train <- uncode(credit_train, train_cat, categories)
+code_test <- uncode(credit_test, test_cat, categories)
 
 # > Splitting sex & marital status to individual attributes
 # > For training set
