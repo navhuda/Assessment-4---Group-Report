@@ -10,6 +10,10 @@
 		<node id="6" name="Logistic Regression" qualified_name="Orange.widgets.model.owlogisticregression.OWLogisticRegression" project_name="Orange3" version="" title="Logistic Regression" position="(466.0, 249.0)" />
 		<node id="7" name="Predictions" qualified_name="Orange.widgets.evaluate.owpredictions.OWPredictions" project_name="Orange3" version="" title="Predictions" position="(586.0, 258.0)" />
 		<node id="8" name="Save Data" qualified_name="Orange.widgets.data.owsave.OWSave" project_name="Orange3" version="" title="Save Data" position="(694.0, 258.0)" />
+		<node id="9" name="Data Sampler" qualified_name="Orange.widgets.data.owdatasampler.OWDataSampler" project_name="Orange3" version="" title="Data Sampler" position="(466.0, 104.0)" />
+		<node id="10" name="Logistic Regression" qualified_name="Orange.widgets.model.owlogisticregression.OWLogisticRegression" project_name="Orange3" version="" title="TRAIN LR" position="(613.0, 174.0)" />
+		<node id="11" name="Predictions" qualified_name="Orange.widgets.evaluate.owpredictions.OWPredictions" project_name="Orange3" version="" title="TRAIN prediction" position="(766.0, 104.0)" />
+		<node id="12" name="Save Data" qualified_name="Orange.widgets.data.owsave.OWSave" project_name="Orange3" version="" title="LR TRAINED" position="(916.0, 104.0)" />
 	</nodes>
 	<links>
 		<link id="0" source_node_id="0" sink_node_id="1" source_channel="Data" sink_channel="Data" enabled="true" />
@@ -20,6 +24,11 @@
 		<link id="5" source_node_id="5" sink_node_id="7" source_channel="Data" sink_channel="Data" enabled="true" />
 		<link id="6" source_node_id="6" sink_node_id="7" source_channel="Model" sink_channel="Predictors" enabled="true" />
 		<link id="7" source_node_id="7" sink_node_id="8" source_channel="Predictions" sink_channel="Data" enabled="true" />
+		<link id="8" source_node_id="2" sink_node_id="9" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="9" source_node_id="9" sink_node_id="10" source_channel="Data Sample" sink_channel="Data" enabled="true" />
+		<link id="10" source_node_id="10" sink_node_id="11" source_channel="Model" sink_channel="Predictors" enabled="true" />
+		<link id="11" source_node_id="9" sink_node_id="11" source_channel="Data Sample" sink_channel="Data" enabled="true" />
+		<link id="12" source_node_id="11" sink_node_id="12" source_channel="Predictions" sink_channel="Data" enabled="true" />
 	</links>
 	<annotations />
 	<thumbnail />
@@ -78,11 +87,20 @@ SytLLEstSy5LL0swSzFLMkszSzRLNUs2SzdLOEs5SzpLO0s8Sz1LPks/S0BLQUtCS0NLREtFS0ZL
 R0tIS0lLSktLS0xLTUtOS09LUEtRS1JLU0tUS1VLVktXS1hLWUtaS1tLXEtdS15LX0tgS2FLYktj
 S2RLZUtmS2dLaEtpS2pLa0tsS21LbktvS3BLcUtyS3NLdEt1S3ZLd0t4S3lLekt7S3xLfUt+S39L
 gEuBS4JLg0uES4VLhkuHS4hLiUuKS4tLjEuNS45Lj0uQS5FLkkuTS5RLlWWMC3Njb3JlX3RhYmxl
-lH2UjAxzaG93bl9zY29yZXOUj5QojAZSZWNhbGyUjAJDQZSMAlIylIwEUk1TRZSMA0FVQ5SMA01T
-RZSMA01BRZSMAkYxlIwJUHJlY2lzaW9ulJBzjAtfX3ZlcnNpb25fX5RLAYwQY29udGV4dF9zZXR0
+lH2UjAxzaG93bl9zY29yZXOUj5QojAJGMZSMAlIylIwDTUFFlIwGUmVjYWxslIwEUk1TRZSMAkNB
+lIwDTVNFlIwJUHJlY2lzaW9ulIwDQVVDlJBzjAtfX3ZlcnNpb25fX5RLAYwQY29udGV4dF9zZXR0
 aW5nc5RdlHUu
 </properties>
 		<properties node_id="8" format="literal">{'add_type_annotations': False, 'auto_save': False, 'controlAreaVisible': True, 'filter': 'Comma-separated values (*.csv)', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01\x8e\x00\x00\x00\xb2\x00\x00\x02^\x00\x00\x015\x00\x00\x01\x8f\x00\x00\x00\xc9\x00\x00\x02]\x00\x00\x014\x00\x00\x00\x00\x00\x00\x00\x00\x03\xc0\x00\x00\x01\x8f\x00\x00\x00\xc9\x00\x00\x02]\x00\x00\x014', 'stored_name': 'Logistic Regression.csv', 'stored_path': '.', '__version__': 2}</properties>
+		<properties node_id="9" format="literal">{'compatibility_mode': False, 'controlAreaVisible': True, 'number_of_folds': 10, 'replacement': False, 'sampleSizeNumber': 1, 'sampleSizePercentage': 70, 'sampleSizeSqlPercentage': 0.1, 'sampleSizeSqlTime': 1, 'sampling_type': 0, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01\x87\x00\x00\x00M\x00\x00\x028\x00\x00\x01\x9b\x00\x00\x01\x88\x00\x00\x00d\x00\x00\x027\x00\x00\x01\x9a\x00\x00\x00\x00\x00\x00\x00\x00\x03\xc0\x00\x00\x01\x88\x00\x00\x00d\x00\x00\x027\x00\x00\x01\x9a', 'selectedFold': 1, 'sql_dl': False, 'stratify': False, 'use_seed': True, '__version__': 2}</properties>
+		<properties node_id="10" format="literal">{'C_index': 61, 'auto_apply': True, 'class_weight': False, 'controlAreaVisible': True, 'learner_name': '', 'penalty_type': 1, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01\x82\x00\x00\x00\x7f\x00\x00\x02=\x00\x00\x01i\x00\x00\x01\x83\x00\x00\x00\x96\x00\x00\x02&lt;\x00\x00\x01h\x00\x00\x00\x00\x00\x00\x00\x00\x03\xc0\x00\x00\x01\x83\x00\x00\x00\x96\x00\x00\x02&lt;\x00\x00\x01h', '__version__': 1}</properties>
+		<properties node_id="11" format="pickle">gASVCgEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lENCAdnQywADAAAAAACAAAAAJgAAA0AAAAIFAAAAgAAAACYAAANAAAACBQAAAAAAAAAAA8AAAACA
+AAAAJgAAA0AAAAIFlIwJc2VsZWN0aW9ulF2UjAtzY29yZV90YWJsZZR9lIwMc2hvd25fc2NvcmVz
+lI+UKIwCRjGUjAJSMpSMA01BRZSMBlJlY2FsbJSMBFJNU0WUjAJDQZSMA01TRZSMCVByZWNpc2lv
+bpSMA0FVQ5SQc4wLX192ZXJzaW9uX1+USwGMEGNvbnRleHRfc2V0dGluZ3OUXZR1Lg==
+</properties>
+		<properties node_id="12" format="literal">{'add_type_annotations': False, 'auto_save': False, 'controlAreaVisible': True, 'filter': 'Comma-separated values (*.csv)', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01\x8e\x00\x00\x00\xb2\x00\x00\x02G\x00\x00\x015\x00\x00\x01\x8f\x00\x00\x00\xc9\x00\x00\x02F\x00\x00\x014\x00\x00\x00\x00\x00\x00\x00\x00\x03\xc0\x00\x00\x01\x8f\x00\x00\x00\xc9\x00\x00\x02F\x00\x00\x014', 'stored_name': 'LR TRAINED.csv', 'stored_path': 'D:/Documents/OneDrive - Macquarie University/MQ_2021_S1/BUSA3020/Assessments/Assessment 4 - Group Report/data/TRAINED', '__version__': 2}</properties>
 	</node_properties>
 	<session_state>
 		<window_groups />
